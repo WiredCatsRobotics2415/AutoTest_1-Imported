@@ -40,8 +40,7 @@ public class RobotContainer {
   public RobotContainer() {
 
     // Register commands for auto 
-    // NamedCommands.registerCommand("run_intake", intake.runIntakeCommand(0.5).withTimeout(5));
-    // NamedCommands.registerCommand("run_intake", intake.runIntakeCommand(0.5));
+    NamedCommands.registerCommand("run_intake", intake.autoIntakeCommand());
 
     // Configure the trigger bindings
     configureBindings();
@@ -69,8 +68,8 @@ public class RobotContainer {
 
     //oi.getIntakeButton().onTrue(new SequentialCommandGroup(intake.runIntakeCommand(0.5), new WaitCommand(5), intake.runIntakeCommand(0)));
 
-    oi.getIntakeButton().whileTrue(intake.runIntakeCommand(0.5));
-    oi.getOuttakeButton().whileTrue(intake.runIntakeCommand(-0.5));
+    oi.getIntakeButton().whileTrue(intake.runIntakeCommand(Constants.MotorSpeeds.kIntakeSpeed));
+    oi.getOuttakeButton().whileTrue(intake.runIntakeCommand(-Constants.MotorSpeeds.kIntakeSpeed));
   }
 
   /**
@@ -80,7 +79,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // Test autonomous path 
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Test_Path"); 
+    PathPlannerPath path = PathPlannerPath.fromPathFile("Middle_Basic"); 
 
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);

@@ -6,9 +6,22 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "sequential",
           "data": {
-            "pathName": "Test_Path"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Middle_Basic"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Top_Basic"
+                }
+              }
+            ]
           }
         }
       ]

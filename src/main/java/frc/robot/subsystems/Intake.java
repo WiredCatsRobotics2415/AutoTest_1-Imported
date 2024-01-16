@@ -5,8 +5,13 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants;
+
 import com.revrobotics.CANSparkMax;
 
 public class Intake extends SubsystemBase {
@@ -32,11 +37,12 @@ public class Intake extends SubsystemBase {
    *
    * @return a command
    */
-  public Command IntakeCommand() {
+  public Command IntakeCommand(int percent) {
     // Inline construction of command goes here.
     // Subsystem::RunOnce implicitly requires `this` subsystem.
     return runOnce(
         () -> {
+          this.set(percent); 
           /* one-time action goes here */
         });
   }
@@ -56,6 +62,10 @@ public class Intake extends SubsystemBase {
 
   public Command runIntakeCommand(double percent) {
     return new StartEndCommand(() -> this.set(percent), () -> this.set(0.0), this);
+  }
+
+  public Command autoIntakeCommand() {
+    return new SequentialCommandGroup(new InstantCommand(() -> this.set(Constants.MotorSpeeds.kIntakeSpeed)), new WaitCommand(2), new InstantCommand(() -> this.set(0.0)));
   }
 
   /**
