@@ -14,12 +14,6 @@
                 "data": {
                   "pathName": "Middle_Basic"
                 }
-              },
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "Top_Basic"
-                }
               }
             ]
           }

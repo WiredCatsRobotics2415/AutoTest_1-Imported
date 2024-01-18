@@ -9,10 +9,13 @@ import frc.robot.commands.Autos;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
 
+import com.ctre.phoenix6.hardware.CANcoder;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.path.PathPlannerPath;
 
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -36,11 +39,22 @@ public class RobotContainer {
   private final CommandXboxController m_driverController =
       new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    oi = OI.getInstance(); // Initialize OI
+
+    // Build AutoChooser 
+    //autoChooser = AutoBuilder.buildAutoChooser("Basic_Auto"); 
+    //SmartDashboard.putData("Auto Chooser", autoChooser);
+
 
     // Register commands for auto 
     NamedCommands.registerCommand("run_intake", intake.autoIntakeCommand());
+
+    m_chooser.setDefaultOption("Default Auto", "Default_Auto");
+    SmartDashboard.putData("Auto choices", m_chooser);
 
     // Configure the trigger bindings
     configureBindings();
@@ -77,12 +91,22 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+  
   public Command getAutonomousCommand() {
     // Test autonomous path 
-    PathPlannerPath path = PathPlannerPath.fromPathFile("Middle_Basic"); 
+    //PathPlannerPath path = PathPlannerPath.fromPathFile("Middle_Basic"); 
 
     // An example command will be run in autonomous
     //return Autos.exampleAuto(m_exampleSubsystem);
-    return AutoBuilder.followPath(path); 
+    //return AutoBuilder.followPath(path); 
+    return null; 
   }
+  
+/* 
+  public Command getAutonomousCommand() {
+    return autoChooser.getSelected(); 
+  }
+  */
+   
 }
